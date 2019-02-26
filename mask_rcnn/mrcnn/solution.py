@@ -2439,10 +2439,10 @@ class MaskRCNN():
         N = zero_ix[0] if zero_ix.shape[0] > 0 else detections.shape[0]
 
         # Extract boxes, class_ids, scores, and class-specific masks
-        boxes = 
-        class_ids = 
-        scores = 
-        masks = 
+        boxes = detections[:N, :4]
+        class_ids = detections[:N, 4].astype(np.int32)
+        scores = detections[:N, 5]
+        masks = mrcnn_mask[np.arange(N), :, :, class_ids]
 
         # Translate normalized coordinates in the resized image to pixel
         # coordinates in the original image before resizing
@@ -2461,14 +2461,12 @@ class MaskRCNN():
         # network weights are still random
         exclude_ix = np.where(
             (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1]) <= 0)[0]
-
-        # Hint: np.delete
         if exclude_ix.shape[0] > 0:
-            boxes = 
-            class_ids = 
-            scores = 
-            masks = 
-            N = 
+            boxes = np.delete(boxes, exclude_ix, axis=0)
+            class_ids = np.delete(class_ids, exclude_ix, axis=0)
+            scores = np.delete(scores, exclude_ix, axis=0)
+            masks = np.delete(masks, exclude_ix, axis=0)
+            N = class_ids.shape[0]
 
         # Resize masks to original image size and set boundary threshold.
         full_masks = []
