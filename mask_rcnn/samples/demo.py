@@ -19,8 +19,6 @@ from mrcnn import visualize
 sys.path.append(os.path.join(ROOT_DIR, "samples/coco/"))  # To find local version
 import coco
 
-%matplotlib inline 
-
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
@@ -53,7 +51,7 @@ model.load_weights(COCO_MODEL_PATH, by_name=True)
 
 
 
-OCO Class names
+#COCO Class names
 # Index of the class in the list is its ID. For example, to get ID of
 # the teddy bear class, use: class_names.index('teddy bear')
 class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
@@ -75,7 +73,10 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
 
 #Load a random image from the images folder
 file_names = next(os.walk(IMAGE_DIR))[2]
+#file_names = ROOT_DIR + 'arang.png'
 image = skimage.io.imread(os.path.join(IMAGE_DIR, random.choice(file_names)))
+#image = skimage.io.imread(os.path.join(ROOT_DIR, 'arang.png'))
+
 
 # Run detection
 results = model.detect([image], verbose=1)
