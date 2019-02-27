@@ -58,17 +58,17 @@ def cam():
     picked_labels = 
     ########################################################################## 
 
-    prediction = np.zeros((10, 10), dtype=np.float32)
-    prediction[np.arange(10), picked_labels] = 1.0
 
 
+    ####################################################################################### 
+    # TODO 5-2)                                                                           #
+    # From the class-weight(W5), pick a weight vector corresponding to 'picked_labels'    #
+    # Hint: .eval(session=sess) would make tensor to numpy array                          #
+    ####################################################################################### 
 
-    ########################################################################## 
-    # TODO 5-2)
-    # From the class-weight(W5), pick a weight vector corresponding to 'picked_labels' 
-    # Hint: .eval(session=sess) would make tensor to 
+    W = W5.eval(session=sess)
     matching_weight = 
-    mat = np.reshape(matching_weight, (10, 1, 1, 1024))
+    matching_weight = np.reshape(matching_weight, (10, 1, 1, 1024))
     output = 
 
 
