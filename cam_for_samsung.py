@@ -52,10 +52,11 @@ def cam():
     # We get random index in 'shuff_idx'                                     #
     # You should pick a matching tensor using 'shuff_idx'                    #
     ##########################################################################
-    picked = 
-    # And pick a matching labels using 'shuff_idx'
+
+    shuff_idx = np.random.randint(batch_xs.shape[0], size=10)
+    picked = feature_tensor[shuff_idx]
     picked_labels = np.asarray(labels[shuff_idx], dtype=np.float32)
-    picked_labels = 
+    picked_labels = np.argmax(pikcked_labels, axis=1)
     ########################################################################## 
 
 
@@ -67,12 +68,9 @@ def cam():
     ####################################################################################### 
 
     W = W5.eval(session=sess)
-    matching_weight = 
+    matching_weight = W[:, picked_labels]
     matching_weight = np.reshape(matching_weight, (10, 1, 1, 1024))
-    output = 
-
-
-    ####################################################################################### 
+    output = (picked * matching_weight).sum(axis=3)
 
 
     fig = plt.figure()
@@ -145,9 +143,6 @@ L1 =
 #       2) Choose an optimizer for minimizing your cost.                                         # 
 #   Hint : tf.reduce_mean, tf.nn. ( - ) ,                                                        #
 ##################################################################################################
-
-
-
 
 
 
